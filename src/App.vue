@@ -1,29 +1,42 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <!-- <div class="request-loading" :class="{'request-loading-show' : requestLoading}">
+      <div class="loading-module"></div>
+    </div> -->
+    <div v-loading.fullscreen.lock="requestLoading"></div>
+    <router-view></router-view>
   </div>
 </template>
 
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  name: 'app',
+  data() {
+    return {
+      fullscreenLoading: false
+    }
+  },
+  components: {},
+  created () {},
+  computed: {
+    ...mapGetters([
+      'requestLoading'
+    ]),
+  }
+}
+</script>
+
 <style lang="scss">
+@import "./assets/scss/reset.scss";
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  position: relative;
+  height: 100%;
 }
 </style>
