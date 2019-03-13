@@ -1,9 +1,8 @@
 <template>
 <el-aside style="width:auto;">
   <div class="navbar">
-    <div class="switch" @click="isCollapseShow">
-      <i style="font-size:25px;pointer:cursion;">🐷</i>
-      <!-- <el-switch v-model="isCollapse">🐷</el-switch> -->
+    <div class="switch">
+      <el-switch v-model="isCollapse"></el-switch>
     </div>
     <el-menu default-active="1-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="!isCollapse">
       <el-submenu index="1">
@@ -12,9 +11,29 @@
           <span slot="title">教学任务</span>
         </template>
         <el-menu-item-group>
-          <router-link :to="{name:'teachingTask'}">
+          <router-link to="/teachingTask">
             <el-menu-item index="1-1">
-              详情
+              大学城校区
+            </el-menu-item>
+          </router-link>
+          <router-link to="/teachingTask">
+            <el-menu-item index="1-2">
+              中山校区
+            </el-menu-item>
+          </router-link>
+          <router-link to="/teachingTask">
+            <el-menu-item index="1-3">
+              云浮校区
+            </el-menu-item>
+          </router-link>
+          <router-link to="/teachingTask">
+            <el-menu-item index="1-4">
+              赤岗校区
+            </el-menu-item>
+          </router-link>
+          <router-link to="/summarizing">
+            <el-menu-item index="1-5">
+              汇总
             </el-menu-item>
           </router-link>
         </el-menu-item-group>
@@ -31,10 +50,29 @@
           <span slot="title">课程管理</span>
         </el-menu-item>
       </router-link>
-      <router-link :to="{name:'remuneration'}">
+      <el-submenu index="4">
+        <template slot="title">
+          <i class="el-icon-location"></i>
+          <span slot="title">课酬管理</span>
+        </template>
+        <el-menu-item-group>
+          <router-link :to="{name:'remuneration'}">
+            <el-menu-item index="4-1">
+              个人工作量
+            </el-menu-item>
+          </router-link>
+        </el-menu-item-group>
+      </el-submenu>
+      <!-- <router-link :to="{name:'remuneration'}">
         <el-menu-item index="4">
           <i class="el-icon-setting"></i>
           <span slot="title">课酬管理</span>
+        </el-menu-item>
+      </router-link> -->
+      <router-link :to="{name:'calculation'}">
+        <el-menu-item index="5">
+          <i class="el-icon-setting"></i>
+          <span slot="title">公式集合</span>
         </el-menu-item>
       </router-link>
     </el-menu>
@@ -55,17 +93,9 @@ export default {
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
-    },
-    isCollapseShow(){
-      this.isCollapse = !this.isCollapse
     }
-  },
-  watch:{
-    // isCollapse(){
-    //   this.isCollapse = !this.isCollapse
-    // }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

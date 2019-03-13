@@ -3,7 +3,7 @@
   <div class="header">
     <div class="left">
       <router-link to="/">
-        <h1>🐷课程及酬金管理系统</h1>
+        <h1>课程及酬金管理系统</h1>
       </router-link>
     </div>
     <div class="right">

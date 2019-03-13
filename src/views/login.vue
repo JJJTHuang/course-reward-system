@@ -60,6 +60,11 @@ export default {
           self.api.user.login(self, self.ruleForm).then(res => {
             localStorage.setItem('sessionToken', res.sessionToken)
             if (localStorage.sessionToken) {
+              const h = self.$createElement
+              self.$notify({
+                title: 'admin 你好',
+                message: h('i', { style: 'color: #409EFF'}, `欢迎登陆课酬管理系统~`)
+              })
               self.$router.push({
                 name: 'index'
               })
