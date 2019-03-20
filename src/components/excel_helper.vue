@@ -3,14 +3,14 @@
   <input type="file" @change="importFile(this)" id="imFile" style="display: none"
     accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
   <a id="downlink"></a>
-  <el-button type="primary" size="mini" class="button" @click="uploadFile()">导入<i class="el-icon-upload el-icon--right"></i></el-button>
-  <el-button type="primary" size="mini" class="button" @click="downloadFile(tableData)">导出<i class="el-icon-document el-icon--right"></i></el-button>
+  <el-button v-if="dataIn" type="primary" size="mini" class="button" @click="uploadFile()">导入<i class="el-icon-upload el-icon--right"></i></el-button>
+  <el-button v-else type="primary" size="mini" class="button" @click="downloadFile(propData)">导出<i class="el-icon-document el-icon--right"></i></el-button>
   <!-- message -->
   <el-dialog title="提示" v-model="errorDialog" size="tiny">
     <span>{{errorMsg}}</span>
     <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="errorDialog=false">确认</el-button>
-        </span>
+      <el-button type="primary" @click="errorDialog=false">确认</el-button>
+    </span>
   </el-dialog>
 </div>
 </template>
@@ -30,7 +30,8 @@ export default {
     }
   },
   props: {
-    propData: Array
+    propData: Array,
+    dataIn:Boolean
   },
   methods: {
     uploadFile: function () { // 点击导入按钮
@@ -66,7 +67,6 @@ export default {
           })
         }
         let json = XLSX.utils.sheet_to_json($t.wb.Sheets[$t.wb.SheetNames[0]])
-        console.log(typeof json)
         $t.dealFile($t.analyzeData(json)) // analyzeData: 解析导入数据
       }
       if (this.rABS) {
@@ -121,7 +121,6 @@ export default {
       return data
     },
     dealFile: function (data) { // 处理导入的数据
-      console.log(data)
       this.imFile.value = ''
       this.fullscreenLoading = false
       if (data.length <= 0) {
@@ -164,7 +163,6 @@ export default {
   mounted() {
     this.imFile = document.getElementById('imFile')
     this.outFile = document.getElementById('downlink')
-    this.tableData = this.propData
   }
 }
 </script>

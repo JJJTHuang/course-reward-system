@@ -1,7 +1,8 @@
 <template>
   <div class="page">
     <el-breadcrumb separator="/">
-      <el-breadcrumb-item v-for="(item,index) in nav_path" v-bind:key="index" :to="{ path: `/${item}` }">{{match(item)}}</el-breadcrumb-item>
+      <!-- :to="{ path: `/${item}` }" -->
+      <el-breadcrumb-item v-for="(item,index) in nav_path" :key=index>{{match(item)}}</el-breadcrumb-item>
     </el-breadcrumb>
   </div>
 </template>
@@ -18,7 +19,11 @@ export default {
         'yf':'云浮校区',
         'cg':'赤岗校区',
         'teacherInfo':'教师信息',
-        'summarizing':'汇总'
+        'summarizing':'汇总',
+        'remuneration':'课酬管理',
+        'personal':'个人工作量',
+        'course':'课程管理',
+        'dataIO':'数据导入导出'
       },
       nav_path:[]
     }

@@ -1,42 +1,64 @@
 <template>
   <div class="page">
     <el-row type="flex" align="middle">
-      <el-col :span="12">
-        <tab-nav path='/teacherInfo/ct'></tab-nav>
+      <el-col :span="18">
+        <tab-nav path="/teacherInfo/ct"></tab-nav>
       </el-col>
       <el-col :span="4">
-        <el-select v-model="faculty_value" placeholder="请选择" size="mini" @change="optionsChange">
-          <ElOption
-            v-for="item in options_faculty"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></ElOption>
-        </el-select>
+        <department-option @change="departmentChange"></department-option>
       </el-col>
-      <el-col :span="4">
-        <el-select v-model="year_value" placeholder="请选择" size="mini" @change="optionsChange">
-          <ElOption
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></ElOption>
-        </el-select>
-      </el-col>
-      <el-col :span="4">
-        <excel-helper :propData="tableData" @change="tableChange"></excel-helper>
-      </el-col>
+      <!-- <el-button type="primary" @click="handleadd">新增</el-button> -->
     </el-row>
 
     <el-table :data="tableData">
-      <el-table-column fixed prop="date" label="日期" width="150"></el-table-column>
-      <el-table-column prop="name" label="姓名" width="120"></el-table-column>
-      <el-table-column prop="province" label="省份" width="120"></el-table-column>
-      <el-table-column prop="city" label="市区" width="120"></el-table-column>
-      <el-table-column prop="address" label="地址" width="300"></el-table-column>
-      <el-table-column prop="zip" label="邮编" width="120"></el-table-column>
+      <el-table-column
+        v-for="(item,index) in tableConfig"
+        :key="index"
+        :prop="item.prop"
+        :label="item.label"
+        :min-width="item.minWidth"
+      ></el-table-column>
+      <el-table-column label="操作" min-width="100">
+        <template scope="scope">
+          <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+        </template>
+      </el-table-column>
     </el-table>
+
+    <el-dialog title="教师信息" :visible.sync="dialogFormVisible">
+      <el-form :model="form">
+        <el-form-item label="教师编号" :label-width="formLabelWidth">
+          <el-input v-model="form.teacher_id" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="教师姓名" :label-width="formLabelWidth">
+          <el-input data-key="教师姓名" v-model="form.teacher_name" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="联系电话" :label-width="formLabelWidth">
+          <el-input v-model="form.tel" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="教师职称" :label-width="formLabelWidth">
+          <el-input v-model="form.teacher_title" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="薪资卡号" :label-width="formLabelWidth">
+          <el-input v-model="form.payment_card" auto-complete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="cancel">取 消</el-button>
+        <el-button type="primary" @click="update">确 定</el-button>
+      </div>
+    </el-dialog>
+
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="1"
+      :page-sizes="[10, 30, 50, 100]"
+      :page-size="10"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="300"
+    ></el-pagination>
   </div>
 </template>
 
@@ -44,113 +66,145 @@
 export default {
   data() {
     return {
-      tableData: [
+      tableConfig: [
         {
-          date: "2016-05-03",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333
+          prop: "teacher_id",
+          label: "教师编号",
+          minWidth: 60
         },
         {
-          date: "2016-05-02",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333
+          prop: "teacher_name",
+          label: "教师姓名",
+          minWidth: 60
         },
         {
-          date: "2016-05-04",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333
+          prop: "tel",
+          label: "联系电话",
+          minWidth: 60
         },
         {
-          date: "2016-05-01",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333
+          prop: "teacher_title",
+          label: "教师职称",
+          minWidth: 60
         },
         {
-          date: "2016-05-08",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333
-        },
-        {
-          date: "2016-05-06",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          province: "上海",
-          city: "普陀区",
-          address: "上海市普陀区金沙江路 1518 弄",
-          zip: 200333
+          prop: "payment_card",
+          label: "薪资卡号",
+          minWidth: 60
         }
       ],
-      options: [
-        {
-          value: "选项1",
-          label: "2016-2017(1)"
-        },
-        {
-          value: "选项2",
-          label: "2016-2017(2)"
-        },
-        {
-          value: "选项3",
-          label: "2017-2018(1)"
-        },
-        {
-          value: "选项4",
-          label: "2017-2018(2)"
-        },
-        {
-          value: "选项5",
-          label: "2018-2019(1)"
-        }
-      ],
-      year_value: "",
-      options_faculty: [
-        {
-          value: "选项1",
-          label: "药学院"
-        },
-        {
-          value: "选项2",
-          label: "医药信息工程学院"
-        },
-        {
-          value: "选项3",
-          label: "食品科学院"
-        },
-        {
-          value: "选项4",
-          label: "中药学院"
-        }
-      ],
-      faculty_value: ""
-    }
+      tableData: [],
+      dialogFormVisible: false,
+      formLabelWidth: "80px",
+      oldform:{},
+      form: {}
+    };
   },
   methods: {
-    optionsChange(){},
-    tableChange(){}
+    departmentChange(val) {
+      let self = this;
+      self.getTableData("department", [val]);
+    },
+    getTableData(department, arr) {
+      let self = this;
+      self.tableData = [];
+      if (arr && arr[0] === "all") {
+        self.api.user.getUsers(self).then(res => {
+          res.forEach(element => {
+            if (!element.isAdmin) self.tableData.push(element);
+          });
+        });
+      } else if (department) {
+        self.api.user.getExists(self, department, arr).then(res => {
+          res.forEach(element => {
+            if (!element.isAdmin) self.tableData.push(element);
+          });
+        });
+      } else {
+        self.api.user.getUsers(self).then(res => {
+          res.forEach(element => {
+            if (!element.isAdmin) self.tableData.push(element);
+          });
+        });
+      }
+    },
+    // 分页
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+    },
+    // 表格编辑
+    handleEdit(index, row) {
+      this.form = this.tableData[index];
+      this.oldform = {}
+      for(let key in this.form){
+        this.oldform[key] = this.form[key]
+      }
+      this.currentIndex = index;
+      this.dialogFormVisible = true;
+    },
+    handleDelete(index, row) {
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(option => {
+        if (option) {
+          this.del(row.objectId, () => {
+            this.tableData.splice(index, 1);
+            this.$message({
+              type: "success",
+              message: "删除成功!"
+            });
+          });
+        }
+      });
+    },
+    cancel() {
+      this.dialogFormVisible = false;
+    },
+    update() {
+      let self = this,data = {}
+      console.log(self.form,self.oldform)
+      for(let key in self.oldform){
+        for(let i in self.form){
+          if(key === i && self.oldform[key] !== self.form[i]){
+            data[key] = self.oldform[key]
+          }
+          if(self.oldform[i] === undefined){
+            data[i] = self.form[i]
+          }
+        }
+      }
+      console.log(data)
+      self.api.user.update(self,self.form.objectId,data).then(res=>{
+        self.$message({
+          type: "success",
+          message: "修改成功!"
+        });
+      })
+      this.dialogFormVisible = false;
+    },
+    add() {
+      let self = this;
+      self.api.user.register(self, form).then(res => {
+        fn();
+      });
+    },
+    del(objId, fn) {
+      let self = this;
+      self.api.user.del(self, objId).then(res => {
+        fn();
+      });
+    }
+  },
+  mounted() {
+    let self = this;
+    self.getTableData();
   }
-}
+};
 </script>
 
 <style scoped>

@@ -2,7 +2,7 @@
 <div class="page">
   <el-row type="flex" align="middle">
     <el-col :span="16">
-      <tab-nav path="/course/ct"></tab-nav>
+      <tab-nav path="/course/zs"></tab-nav>
     </el-col>
     <el-col :span="4">
       <department-option @change="departmentChange"></department-option>
@@ -81,7 +81,7 @@ export default {
         course_type: '基础课'
       }],
       restrainData: {
-        campus_area: ['大学城']
+        campus_area: ['中山']
       },
       dialogFormVisible: false,
       formLabelWidth: "80px",
@@ -111,7 +111,7 @@ export default {
       let self = this
       if (val == "all") {
         self.restrainData = {
-          campus_area: ['大学城']
+          campus_area: ['中山']
         }
         this.getTableData(self.restrainData, self.start, self.end)
       } else {

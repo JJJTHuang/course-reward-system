@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <!-- <div class="request-loading" :class="{'request-loading-show' : requestLoading}">
-      <div class="loading-module"></div>
-    </div> -->
     <div v-loading.fullscreen.lock="requestLoading"></div>
     <router-view></router-view>
   </div>
@@ -14,9 +11,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'app',
   data() {
-    return {
-      fullscreenLoading: false
-    }
+    return {}
   },
   components: {},
   created () {},

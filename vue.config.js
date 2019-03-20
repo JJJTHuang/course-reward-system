@@ -8,9 +8,5 @@ module.exports = {
         data: `@import "@/assets/scss/baseColor.scss";`
       }
     }
-  },
-  devServer: {
-    port:8080,
-    host:'localhost'
   }
 }

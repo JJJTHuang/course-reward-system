@@ -7,35 +7,35 @@
     <el-menu default-active="1-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="!isCollapse">
       <el-submenu index="1">
         <template slot="title">
-          <i class="el-icon-location"></i>
+          <i class="el-icon-tickets"></i>
           <span slot="title">教学任务</span>
         </template>
         <el-menu-item-group>
-          <router-link to="/teachingTask">
+          <router-link :to="{name:'teachingTaskCt'}">
             <el-menu-item index="1-1">
               大学城校区
             </el-menu-item>
           </router-link>
-          <router-link to="/teachingTask">
+          <router-link :to="{name:'teachingTaskZs'}">
             <el-menu-item index="1-2">
               中山校区
             </el-menu-item>
           </router-link>
-          <router-link to="/teachingTask">
+          <router-link :to="{name:'teachingTaskYf'}">
             <el-menu-item index="1-3">
               云浮校区
             </el-menu-item>
           </router-link>
-          <router-link to="/teachingTask">
+          <router-link :to="{name:'teachingTaskCg'}">
             <el-menu-item index="1-4">
               赤岗校区
             </el-menu-item>
           </router-link>
-          <router-link to="/summarizing">
+          <!-- <router-link to="/summarizing">
             <el-menu-item index="1-5">
               汇总
             </el-menu-item>
-          </router-link>
+          </router-link> -->
         </el-menu-item-group>
       </el-submenu>
       <router-link :to="{name:'teacherInfo'}">
@@ -44,35 +44,62 @@
           <span slot="title">教师信息</span>
         </el-menu-item>
       </router-link>
-      <router-link :to="{name:'course'}">
-        <el-menu-item index="3">
-          <i class="el-icon-document"></i>
+      <el-submenu index="3">
+        <template slot="title">
+          <i class="el-icon-date"></i>
           <span slot="title">课程管理</span>
-        </el-menu-item>
-      </router-link>
+        </template>
+        <el-menu-item-group>
+          <router-link :to="{name:'courseCt'}">
+            <el-menu-item index="3-1">
+              大学城校区
+            </el-menu-item>
+          </router-link>
+          <router-link :to="{name:'courseZs'}">
+            <el-menu-item index="3-2">
+              中山校区
+            </el-menu-item>
+          </router-link>
+          <router-link :to="{name:'courseYf'}">
+            <el-menu-item index="3-3">
+              云浮校区
+            </el-menu-item>
+          </router-link>
+          <router-link :to="{name:'courseCg'}">
+            <el-menu-item index="3-4">
+              赤岗校区
+            </el-menu-item>
+          </router-link>
+        </el-menu-item-group>
+      </el-submenu>
       <el-submenu index="4">
         <template slot="title">
           <i class="el-icon-location"></i>
           <span slot="title">课酬管理</span>
         </template>
         <el-menu-item-group>
-          <router-link :to="{name:'remuneration'}">
+          <router-link :to="{name:'workload'}">
             <el-menu-item index="4-1">
               个人工作量
             </el-menu-item>
           </router-link>
+          <router-link :to="{name:'remuneration'}">
+            <el-menu-item index="4-2">
+              个人薪酬表
+            </el-menu-item>
+          </router-link>
         </el-menu-item-group>
       </el-submenu>
-      <!-- <router-link :to="{name:'remuneration'}">
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">课酬管理</span>
-        </el-menu-item>
-      </router-link> -->
-      <router-link :to="{name:'calculation'}">
+      <!-- <router-link :to="{name:'calculation'}">
         <el-menu-item index="5">
           <i class="el-icon-setting"></i>
           <span slot="title">公式集合</span>
+        </el-menu-item>
+      </router-link> -->
+      <router-link :to="{name:'dataIO'}">
+        <el-menu-item index="5">
+          <i class="el-icon-upload"></i>
+          <span slot="title">数据导入导出</span>
         </el-menu-item>
       </router-link>
     </el-menu>
@@ -88,12 +115,8 @@ export default {
     };
   },
   methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    }
+    handleOpen(key, keyPath) {},
+    handleClose(key, keyPath) {}
   }
 }
 </script>
@@ -115,8 +138,9 @@ export default {
 
   .el-menu {
     height: 100%;
-    .el-submenu .el-menu-item{
-      min-width:80px;
+
+    .el-submenu .el-menu-item {
+      min-width: 80px;
     }
   }
 }

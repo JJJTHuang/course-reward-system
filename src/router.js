@@ -2,13 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import index from './views/index.vue'
 import login from './views/login.vue'
-import about from './views/About.vue'
 import calculation from "./views/calculation.vue"
 import teachingTask from './views/teachingTask/teachingTask.vue'
 import summarizing from './views/teachingTask/summarizing.vue'
-import course from './views/course/course.vue'
+import courseCt from './views/course/course.vue'
 import remuneration from './views/remuneration/remuneration.vue'
+import workload from './views/remuneration/workload.vue'
 import teacherInfo from './views/teacherInfo/teacherInfo.vue'
+import dataIO from './views/dataIO.vue'
 
 
 Vue.use(Router)
@@ -16,26 +17,76 @@ Vue.use(Router)
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes: [{
+  routes: [
+    {
       path: '/',
       name: 'index',
       component: index,
-      redirect: '/teachingTask',
+      redirect: {name:'teachingTaskCt'},
       meta: {
         auth: true
       },
-      children: [{
-          path: '/teachingTask',
-          name: 'teachingTask',
+      children: [
+        {
+          path: '/teachingTaskCt',
+          name: 'teachingTaskCt',
           component: teachingTask,
           meta: {
             auth: true
           }
         },
         {
-          path: '/course',
-          name: 'course',
-          component: course,
+          path: '/teachingTaskZs',
+          name: 'teachingTaskZs',
+          component: () => import('@/views/teachingTask/teachingTaskZs.vue'),
+          meta: {
+            auth: true
+          }
+        },
+        {
+          path: '/teachingTaskYf',
+          name: 'teachingTaskYf',
+          component: () => import('@/views/teachingTask/teachingTaskYf.vue'),
+          meta: {
+            auth: true
+          }
+        },
+        {
+          path: '/teachingTaskCg',
+          name: 'teachingTaskCg',
+          component: () => import('@/views/teachingTask/teachingTaskCg.vue'),
+          meta: {
+            auth: true
+          }
+        },
+        {
+          path: '/courseCt',
+          name: 'courseCt',
+          component: courseCt,
+          meta: {
+            auth: true
+          }
+        },
+        {
+          path: '/courseZs',
+          name: 'courseZs',
+          component: () => import('@/views/course/courseZs.vue'),
+          meta: {
+            auth: true
+          }
+        },
+        {
+          path: '/courseYf',
+          name: 'courseYf',
+          component: () => import('@/views/course/courseYf.vue'),
+          meta: {
+            auth: true
+          }
+        },
+        {
+          path: '/courseCg',
+          name: 'courseCg',
+          component: () => import('@/views/course/courseCg.vue'),
           meta: {
             auth: true
           }
@@ -44,6 +95,14 @@ const router = new Router({
           path: '/remuneration',
           name: 'remuneration',
           component: remuneration,
+          meta: {
+            auth: true
+          }
+        },
+        {
+          path: '/remuneration/workload',
+          name: 'workload',
+          component: workload,
           meta: {
             auth: true
           }
@@ -73,16 +132,13 @@ const router = new Router({
           }
         },
         {
-          path: '/about',
-          name: 'about',
-          // route level code-splitting
-          // this generates a separate chunk (about.[hash].js) for this route
-          // which is lazy-loaded when the route is visited.
-          component: about,
+          path: '/dataIO',
+          name: 'dataIO',
+          component: dataIO,
           meta: {
             auth: true
           }
-        },
+        }
       ]
     },
     {

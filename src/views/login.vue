@@ -59,11 +59,11 @@ export default {
         if (valid) {
           self.api.user.login(self, self.ruleForm).then(res => {
             localStorage.setItem('sessionToken', res.sessionToken)
-            if (localStorage.sessionToken) {
-              const h = self.$createElement
+            localStorage.setItem('teacher_name', res.teacher_name)
+            if (res.isAdmin) {
               self.$notify({
-                title: 'admin 你好',
-                message: h('i', { style: 'color: #409EFF'}, `欢迎登陆课酬管理系统~`)
+                title: `${res.teacher_name} 你好`,
+                message: self.$createElement('i', { style: 'color: #409EFF'}, `欢迎登陆课酬管理系统~`)
               })
               self.$router.push({
                 name: 'index'

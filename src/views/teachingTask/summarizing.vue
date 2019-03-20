@@ -31,9 +31,9 @@
     </el-row>
 
     <el-table :data="tableData" border show-summary style="width: 100%">
-      <el-table-column v-for="(item,index) in tableConfig" v-bind:key="index" :prop=item.prop :label=item.label :min-width=item.minWidth>
+      <el-table-column v-for="(item,index) in tableConfig" :key="index" :prop=item.prop :label=item.label :min-width=item.minWidth>
         <span v-if="item.children!==undefined">
-          <el-table-column v-for="(ele,index) in item.children" v-bind:key="index" :prop=ele.prop :label=ele.label :min-width=ele.minWidth></el-table-column>
+          <el-table-column v-for="(ele,index) in item.children" :key="index" :prop=ele.prop :label=ele.label :min-width=ele.minWidth></el-table-column>
         </span>
       </el-table-column>
     </el-table>

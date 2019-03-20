@@ -2,7 +2,7 @@
 <div class="page">
   <el-row type="flex" align="middle">
     <el-col :span="14">
-      <tab-nav path="/teachingTask/ct"></tab-nav>
+      <tab-nav path="/teachingTask/cg"></tab-nav>
     </el-col>
     <el-col :span="4">
       <department-option @change="departmentChange"></department-option>
@@ -118,7 +118,7 @@ export default {
       ],
       tableData: [],
       restrainData: {
-        campus_area: ['大学城']
+        campus_area: ['赤岗']
       },
       start: 0,
       end: 10,
@@ -141,7 +141,7 @@ export default {
       let self = this
       if (val == "all") {
         self.restrainData = {
-          campus_area: ['大学城']
+          campus_area: ['赤岗']
         }
         this.getTableData(self.restrainData, self.start, self.end)
       } else {
@@ -153,7 +153,7 @@ export default {
       let self = this
       if (val == "all") {
         self.restrainData = {
-          campus_area: ['大学城']
+          campus_area: ['赤岗']
         }
         this.getTableData(self.restrainData, self.start, self.end)
       } else {

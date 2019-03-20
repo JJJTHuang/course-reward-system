@@ -7,8 +7,8 @@
       </router-link>
     </div>
     <div class="right">
-      <span class="admin">admin</span>
-      <el-button type="primary">signout</el-button>
+      <span class="admin">{{name}}</span>
+      <el-button @click="logout" type="primary">logout</el-button>
     </div>
   </div>
 </el-header>
@@ -17,7 +17,18 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      name:''
+    }
+  },
+  mounted () {
+    this.name = localStorage.getItem('teacher_name')
+  },
+  methods:{
+    logout(){
+      this.api.user.logout(this)      
+      this.$router.push({name:'login'})
+    }
   }
 }
 </script>
