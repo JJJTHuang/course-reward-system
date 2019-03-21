@@ -32,7 +32,7 @@
     </el-table-column>
   </el-table>
 
-  <el-dialog title="个人薪酬" :visible.sync="dialogFormVisible">
+  <el-dialog title="薪酬发放详情" :visible.sync="dialogFormVisible">
     <el-form :model="form">
       <el-form-item v-for="(item,index) in tableConfig" :key="index" :label=item.label :label-width="formLabelWidth">
         <el-input v-model=form[item.prop] auto-complete="off" :disabled="item.prop=='teacher_name' || item.prop=='teacher_title'"></el-input>
@@ -61,56 +61,76 @@ export default {
           prop: "teacher_title",
           label: "职称",
           minWidth: 60,
-          show: false
         },
         {
-          prop: "year_hours",
-          label: "学年总学时",
-          minWidth: 60
-        },
-        {
-          prop: "base_remuneration", // 基础酬金
-          label: "基础教学工作量以内酬金",
-          minWidth: 60
-        },
-        {
-          prop: "subsidy_remuneration", // 补贴酬金
-          label: "基础教学工作量以外酬金",
-          minWidth: 60
-        },
-        {
-          prop: "cross_area_hours", // 跨校区另算工作量
-          label: "跨校区工作量",
+          prop: "Jan",
+          label: "一月",
           minWidth: 60,
-          tips: "非广州地区的校区"
         },
         {
-          prop: "cross_area_remun", // 跨校区补贴酬金
-          label: "跨校区补贴酬金",
-          minWidth: 60
+          prop: "Feb",
+          label: "一月",
+          minWidth: 60,
         },
         {
-          prop: "total_remuneration", // 跨校区补贴酬金
-          label: "学年总酬金",
-          minWidth: 60
+          prop: "Mar",
+          label: "三月",
+          minWidth: 60,
         },
         {
-          prop: "tips", // 跨校区补贴酬金
-          label: "备注",
-          minWidth: 60
+          prop: "Apr",
+          label: "四月",
+          minWidth: 60,
+        },
+        {
+          prop: "May",
+          label: "五月",
+          minWidth: 60,
+        },
+        {
+          prop: "Jun",
+          label: "六月",
+          minWidth: 60,
+        },
+        {
+          prop: "Jul",
+          label: "七月",
+          minWidth: 60,
+        },
+        {
+          prop: "Aug",
+          label: "八月",
+          minWidth: 60,
+        },
+        {
+          prop: "Sep",
+          label: "九月",
+          minWidth: 60,
+        },
+        {
+          prop: "Oct",
+          label: "十月",
+          minWidth: 60,
+        },
+        {
+          prop: "Nov",
+          label: "十一月",
+          minWidth: 60,
+        },
+        {
+          prop: "Oct",
+          label: "十二月",
+          minWidth: 60,
+        },
+        {
+          prop:"tips",
+          label:"备注",
+          minWidth:60
         }
       ],
       tableData: [{
         teacher_name: "王祖蓝",
         teacher_title: "教授",
-        year_hours: 187.89,
-        base_remuneration: 1600,
-        subsidy_remuneration: 2839.12,
-        cross_area_hours: 123,
-        cross_area_remun: 1233,
-        total_remuneration: 71236,
-        tips: "双肩挑",
-        year: 2019,
       }],
       restrainData_year: {},
       restrainData_department: {},
@@ -123,9 +143,9 @@ export default {
     }
   },
   methods: {
-    getTableData(start, end) {
+   getTableData(start, end) {
       let self = this
-      self.api.remuneration.getMoreExists(self, self.restrainData_year, start, end).then(res => {
+      self.api.payment.getMoreExists(self, self.restrainData_year, start, end).then(res => {
         console.log(res)
         self.tableData = []
         res.map(item=>{
@@ -205,15 +225,15 @@ export default {
       for (let key in self.oldform) {
         for (let i in self.form) {
           if (key === i && self.oldform[key] !== self.form[i]) {
-            i === 'tips' ? data[i] = self.form[i] : data[i] = Number(self.form[i])
+            data[i] = Number(self.form[i])
           }
           if (self.oldform[i] === undefined) {
-            i === 'tips' ? data[i] = self.form[i] : data[i] = Number(self.form[i])
+            data[i] = Number(self.form[i])
           }
         }
       }
       console.log(data)
-      self.api.remuneration.update(self, self.form.objectId, data).then(() => {
+      self.api.payment.update(self, self.form.objectId, data).then(() => {
         self.$message({
           type: "success",
           message: "修改成功!"
@@ -224,7 +244,7 @@ export default {
     add() {},
     del(objId, fn) {
       let self = this;
-      self.api.remuneration.del(self, objId).then(() => {
+      self.api.payment.del(self, objId).then(() => {
         fn();
       });
     }

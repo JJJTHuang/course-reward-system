@@ -10,6 +10,7 @@ import tab_nav from '@/components/tab_nav.vue'
 import excelHelper from '@/components/excel_helper.vue'
 import year_option from '@/components/year_option.vue'
 import department_option from '@/components/department_option.vue'
+import whole_year from '@/components/whole_year.vue'
 import VueDataTables from 'vue-data-tables'
 
 Vue.use(VueDataTables)
@@ -23,6 +24,7 @@ Vue.component('tab-nav',tab_nav)
 Vue.component('excel-helper',excelHelper)
 Vue.component('year-option',year_option)
 Vue.component('department-option',department_option)
+Vue.component('whole-year',whole_year)
 
 window.vm = new Vue({
   router,

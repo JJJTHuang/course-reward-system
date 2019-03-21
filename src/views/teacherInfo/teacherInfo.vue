@@ -1,16 +1,18 @@
 <template>
   <div class="page">
     <el-row type="flex" align="middle">
-      <el-col :span="18">
+      <el-col :span="16">
         <tab-nav path="/teacherInfo/ct"></tab-nav>
       </el-col>
       <el-col :span="4">
         <department-option @change="departmentChange"></department-option>
       </el-col>
-      <!-- <el-button type="primary" @click="handleadd">新增</el-button> -->
+      <el-col :span="4">
+        <excel-helper :propData=tableData :dataIn=false></excel-helper>
+      </el-col>
     </el-row>
 
-    <el-table :data="tableData">
+    <el-table :data="tableData" border>
       <el-table-column
         v-for="(item,index) in tableConfig"
         :key="index"
@@ -18,8 +20,8 @@
         :label="item.label"
         :min-width="item.minWidth"
       ></el-table-column>
-      <el-table-column label="操作" min-width="100">
-        <template scope="scope">
+      <el-table-column label="操作" min-width="120">
+        <template slot-scope="scope">
           <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
@@ -91,6 +93,11 @@ export default {
           prop: "payment_card",
           label: "薪资卡号",
           minWidth: 60
+        },
+        {
+          prop:"tips",
+          label:"备注",
+          minWidth:60
         }
       ],
       tableData: [],
@@ -136,7 +143,7 @@ export default {
       console.log(`当前页: ${val}`);
     },
     // 表格编辑
-    handleEdit(index, row) {
+    handleEdit(index) {  // param (index,row)
       this.form = this.tableData[index];
       this.oldform = {}
       for(let key in this.form){
@@ -179,7 +186,7 @@ export default {
         }
       }
       console.log(data)
-      self.api.user.update(self,self.form.objectId,data).then(res=>{
+      self.api.user.update(self,self.form.objectId,data).then(()=>{
         self.$message({
           type: "success",
           message: "修改成功!"
@@ -187,15 +194,15 @@ export default {
       })
       this.dialogFormVisible = false;
     },
-    add() {
+    add(fn) {
       let self = this;
-      self.api.user.register(self, form).then(res => {
+      self.api.user.register(self, self.form).then(() => {
         fn();
       });
     },
     del(objId, fn) {
       let self = this;
-      self.api.user.del(self, objId).then(res => {
+      self.api.user.del(self, objId).then(() => {
         fn();
       });
     }

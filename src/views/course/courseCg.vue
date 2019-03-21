@@ -13,8 +13,8 @@
   </el-row>
   <el-table :data="tableData" border>
     <el-table-column v-for="(item,index) in tableConfig" :key="index" :prop=item.prop :label=item.label :min-width=item.minWidth></el-table-column>
-    <el-table-column label="操作" min-width="100">
-      <template scope="scope">
+    <el-table-column label="操作" min-width="120">
+      <template slot-scope="scope">
         <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
         <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
       </template>
@@ -120,8 +120,7 @@ export default {
       }
     },
     // 表格编辑
-    handleEdit(index, row) {
-
+    handleEdit(index) {
       this.form = this.tableData[index];
       console.log(this.form)
       this.oldform = {}
@@ -157,22 +156,13 @@ export default {
       console.log(self.form, self.oldform)
       for (let key in self.oldform) {
         for (let i in self.form) {
-          if (key === i && self.oldform[key] !== self.form[i]) {
+          if ((key === i && self.oldform[key] !== self.form[i]) || self.oldform[i] === undefined) {
             data[i] = self.form[i]
-            if(i === 'exp_hours' || i === 'the_hours'|| i === 'credit'){
-              data[i] = Number(data[i])
-            }
-          }
-          if (self.oldform[i] === undefined) {
-            data[i] = self.form[i]
-            if(i === 'exp_hours' || i === 'the_hours'|| i === 'credit'){
-              data[i] = Number(data[i])
-            }
           }
         }
       }
       console.log(data)
-      self.api.course.update(self, self.form.objectId, data).then(res => {
+      self.api.course.update(self, self.form.objectId, data).then(() => {
         self.$message({
           type: "success",
           message: "修改成功!"
@@ -182,7 +172,7 @@ export default {
     },
     del(objId, fn) {
       let self = this;
-      self.api.course.del(self, objId).then(res => {
+      self.api.course.del(self, objId).then(() => {
         fn();
       });
     }

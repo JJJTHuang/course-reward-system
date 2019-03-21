@@ -7,7 +7,6 @@ import teachingTask from './views/teachingTask/teachingTask.vue'
 import summarizing from './views/teachingTask/summarizing.vue'
 import courseCt from './views/course/course.vue'
 import remuneration from './views/remuneration/remuneration.vue'
-import workload from './views/remuneration/workload.vue'
 import teacherInfo from './views/teacherInfo/teacherInfo.vue'
 import dataIO from './views/dataIO.vue'
 
@@ -100,14 +99,6 @@ const router = new Router({
           }
         },
         {
-          path: '/remuneration/workload',
-          name: 'workload',
-          component: workload,
-          meta: {
-            auth: true
-          }
-        },
-        {
           path: '/teacherInfo',
           name: 'teacherInfo',
           component: teacherInfo,
@@ -127,6 +118,14 @@ const router = new Router({
           path: '/calculation',
           name: 'calculation',
           component: calculation,
+          meta: {
+            auth: true
+          }
+        },
+        {
+          path: '/paymentDetail',
+          name: 'paymentDetail',
+          component: () => import('@/views/remuneration/paymentDetail.vue'),
           meta: {
             auth: true
           }

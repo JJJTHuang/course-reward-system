@@ -4,7 +4,7 @@
     <div class="switch">
       <el-switch v-model="isCollapse"></el-switch>
     </div>
-    <el-menu default-active="1-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="!isCollapse">
+    <el-menu default-active="1-1" class="el-menu-vertical-demo" :collapse="!isCollapse">
       <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-tickets"></i>
@@ -78,12 +78,17 @@
           <span slot="title">课酬管理</span>
         </template>
         <el-menu-item-group>
-          <router-link :to="{name:'workload'}">
+          <!-- <router-link :to="{name:'workload'}">
+            <el-menu-item index="4-1">
+              个人工作量
+            </el-menu-item>
+          </router-link> -->
+          <router-link :to="{name:'remuneration'}">
             <el-menu-item index="4-1">
               个人工作量
             </el-menu-item>
           </router-link>
-          <router-link :to="{name:'remuneration'}">
+          <router-link :to="{name:'paymentDetail'}">
             <el-menu-item index="4-2">
               个人薪酬表
             </el-menu-item>
@@ -99,7 +104,7 @@
       <router-link :to="{name:'dataIO'}">
         <el-menu-item index="5">
           <i class="el-icon-upload"></i>
-          <span slot="title">数据导入导出</span>
+          <span slot="title">数据导入</span>
         </el-menu-item>
       </router-link>
     </el-menu>
@@ -113,10 +118,6 @@ export default {
     return {
       isCollapse: false
     };
-  },
-  methods: {
-    handleOpen(key, keyPath) {},
-    handleClose(key, keyPath) {}
   }
 }
 </script>
