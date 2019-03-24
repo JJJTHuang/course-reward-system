@@ -20,7 +20,7 @@ export default {
     [Icon.name]: Icon,
   },
   created () {
-    this.$router.push({path:'/payment'})
+    this.$router.push({path:'/'})
   },
   computed: {
     ...mapGetters([

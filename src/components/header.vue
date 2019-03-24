@@ -2,7 +2,7 @@
 <el-header>
   <div class="header">
     <div class="left">
-      <router-link to="/">
+      <router-link class="router" to="/">
         <h1>课程及酬金管理系统</h1>
       </router-link>
     </div>
@@ -51,7 +51,9 @@ export default {
 
     .left {
       float: left;
-
+      .router{
+        color:$theme-color;
+      }
       h1 {
         font-size: 20px;
       }

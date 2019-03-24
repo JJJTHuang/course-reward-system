@@ -1,25 +1,35 @@
 <template>
   <div class="login_form">
+    <v-header title="登录"></v-header>
     <div class="form">
     <md-field>
       <md-input-item
-        title="用户名"
-        type="text"
-        v-model="username"
-        placeholder="输入用户名"
-      ></md-input-item>
-      <md-input-item
-        title="密码"
-        type="password"
-        v-model="password"
-        @keydown="onInputKeydown"
-        @change="onInputChange"
-        placeholder="输入密码"
-      ></md-input-item>
+          type="text"
+          title="用户名"
+          name="username"
+          v-model=username
+          placeholder="输入用户名"
+          v-validate="'required'"
+          data-vv-validate-on="input"
+          :error="errors.first('username')"
+          clearable
+        ></md-input-item>
+
+        <md-input-item
+          type="password"
+          title="密码"
+          name="password"
+          v-model=password
+          placeholder="输入密码"
+          v-validate="'required|min:6'"
+          data-vv-validate-on="input"
+          :error="errors.first('password')"
+          clearable
+        ></md-input-item>
     </md-field>
     </div>
     <div class="btn-group">
-      <md-button type="primary" @click="clear" inline plain>清空</md-button>
+      <md-button type="primary" @click="reg" inline plain>去注册</md-button>
       <md-button type="primary" @click="login" inline>登陆</md-button>
     </div>
   </div>
@@ -57,20 +67,28 @@ export default {
         name:self.username,
         pass:self.password
       }
-      if(userData.name === '' || userData.pass === '') {
-        Toast.info('用户名或密码不能为空')
-      }else{
-        Toast.loading('loading...')
-        self.api.user.login(self, userData).then(res => {
-          localStorage.setItem('sessionToken', res.sessionToken)
-          if (localStorage.sessionToken) {
-            Toast.hide()
-            self.$router.push({
-              name: 'payment'
+      self.$validator.validateAll().then(res=>{
+        if(res){
+          Toast.loading('loading...')
+          self.api.user.login(self, userData).then(res => {
+            localStorage.setItem('sessionToken', res.sessionToken)
+            if (localStorage.sessionToken) {
+              Toast.hide()
+              self.$router.push({
+                name: 'payment'
+              })
+            }
+          }).catch(() => {})
+        }else{
+          Toast({
+              content: `请输入正确的用户名和密码`,
+              icon: 'warn',
             })
-          }
-        }).catch(() => {})
-      }
+        }
+      })
+    },
+    reg(){
+      this.$router.push({name:'register'})
     }
   },
 }
@@ -80,7 +98,9 @@ export default {
 <style lang="scss" scoped>
 .login_form{
   width: 100%;
-  margin-top: 2rem;
+  .form{
+    margin-top: 1rem;
+  }
   .btn-group{
     margin-top:0.5rem;
     width: 100%;

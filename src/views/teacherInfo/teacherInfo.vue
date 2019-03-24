@@ -2,7 +2,7 @@
   <div class="page">
     <el-row type="flex" align="middle">
       <el-col :span="16">
-        <tab-nav path="/teacherInfo/ct"></tab-nav>
+        <tab-nav path="/teacherInfo"></tab-nav>
       </el-col>
       <el-col :span="4">
         <department-option @change="departmentChange"></department-option>
@@ -30,8 +30,11 @@
 
     <el-dialog title="教师信息" :visible.sync="dialogFormVisible">
       <el-form :model="form">
-        <el-form-item label="教师编号" :label-width="formLabelWidth">
-          <el-input v-model="form.teacher_id" auto-complete="off"></el-input>
+        <el-form-item label="教师编号" :label-width="formLabelWidth" >
+          <el-input v-model="form.teacher_id" auto-complete="off" disabled=true></el-input>
+        </el-form-item>
+        <el-form-item label="薪资卡号" :label-width="formLabelWidth" >
+          <el-input v-model="form.payment_card" auto-complete="off" disabled=true></el-input>
         </el-form-item>
         <el-form-item label="教师姓名" :label-width="formLabelWidth">
           <el-input data-key="教师姓名" v-model="form.teacher_name" auto-complete="off"></el-input>
@@ -41,9 +44,6 @@
         </el-form-item>
         <el-form-item label="教师职称" :label-width="formLabelWidth">
           <el-input v-model="form.teacher_title" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="薪资卡号" :label-width="formLabelWidth">
-          <el-input v-model="form.payment_card" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

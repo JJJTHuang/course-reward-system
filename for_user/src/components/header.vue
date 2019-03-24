@@ -28,11 +28,13 @@ export default {
 
 <style lang="scss" scoped>
 .header {
+  position: fixed;
   height: 1rem;
-  widows: 100%;
-  // background-color: #2f86f6;
+  width: 100%;
+  background: #fff;
   text-align: center;
   border-bottom: solid 1px #e2e4ea;
+  z-index: 100;
   .router_back {
     float: left;
     height: 1rem;

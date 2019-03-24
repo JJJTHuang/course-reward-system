@@ -1,6 +1,6 @@
 <template>
   <div class="md-example-child md-example-child-drop-menu md-example-child-drop-menu-1">
-    <md-drop-menu @change="dropDownChange" :data="data" :default-value="['0']" />
+    <md-drop-menu @change="dropDownChange" :data="data" :default-value="defaultYear" />
   </div>
 </template>
 
@@ -20,49 +20,38 @@ export default {
           text: '年份',
           options: [
             {
-              value: '0',
+              value: '2017',
               text: '2017',
             },
             {
-              value: '1',
+              value: '2018',
               text: '2018',
             },
             {
-              value: '2',
+              value: '2019',
               text: '2019',
             }
           ],
         }
-        // {
-        //   text: '月份',
-        //   options: [
-        //     {
-        //       value: '3',
-        //       text: '一月',
-        //     },
-        //     {
-        //       value: '4',
-        //       text: '二月',
-        //     },
-        //     {
-        //       value: '5',
-        //       text: '三月',
-        //     },
-        //   ],
-        // },
       ],
-      payment:[
-        {
-            
-        }
-      ]
+      defaultYear:[]
     }
   },
   methods:{
     dropDownChange(barItem, listItem){
-      // console.log(barItem.text, listItem.value)
       this.$emit('change',barItem.text, listItem.value)
     }
+  },
+  beforeMount () {
+    let nowYear = new Date().getFullYear()
+    while(nowYear > Number(this.data[0].options[this.data[0].options.length-1].value)){
+      this.data[0].options.push({
+        value:`${nowYear}`,
+        text:`${nowYear}`
+      })
+      nowYear--
+    }
+    this.defaultYear.push(`${nowYear}`)
   }
 }
 </script>

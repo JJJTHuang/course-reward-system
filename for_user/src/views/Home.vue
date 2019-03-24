@@ -12,6 +12,15 @@ export default {
   name: "home",
   components: {
     'tab-bar':tab_bar
+  },
+  mounted () {
+    let self = this
+    let user_info = self.Bmob.User.current()
+    window.user_info = user_info
+    console.log(JSON.stringify(user_info))
+    console.log(JSON.parse(JSON.stringify(user_info)))
+    localStorage.setItem('teacher_id',user_info.teacher_id)
+    localStorage.setItem('user_info',JSON.stringify(user_info))
   }
 }
 </script>
