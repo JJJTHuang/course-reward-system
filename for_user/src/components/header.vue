@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <!-- <md-icon class="router_back" name="arrow-left" size="lg" @click="back"></md-icon> -->
+    <md-icon v-if=routerback class="router_back" name="arrow-left" size="lg" @click="back"></md-icon>
     <div class="title">{{title}}</div>
   </div>
 </template>
@@ -13,7 +13,8 @@ export default {
     return {};
   },
   props: {
-    title: String
+    title: String,
+    routerback:Boolean
   },
   components: {
     [Icon.name]: Icon,

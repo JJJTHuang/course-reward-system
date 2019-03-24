@@ -37,7 +37,8 @@ export default {
   },
   methods: {
     change(item, index, prevIndex) {
-      this.$router.push(item.path);
+      this.current = index
+      this.$router.push(item.path)
     }
   }
 };

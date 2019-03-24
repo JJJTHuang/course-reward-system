@@ -92,6 +92,8 @@ export default {
         nowYear--
       }
       this.defaultVal.unshift(`${new Date().getFullYear()-1}-${new Date().getFullYear()}(${nowTerm})`)
+      this.school_year = `${new Date().getFullYear()-1}-${new Date().getFullYear()}`
+      this.semester = `${nowTerm}`
     },
     getData(){
       let self = this
@@ -121,8 +123,6 @@ export default {
 
   },
   mounted () {
-    let self = this
-
     this.getData()
   }
 }

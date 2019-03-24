@@ -8,6 +8,7 @@ import info from './views/personal/info.vue'
 import apply from './views/personal/apply.vue'
 import course from './views/course.vue'
 import register from './views/register.vue'
+import changePass from './views/changePass.vue'
 import err from './views/404.vue'
 
 Vue.use(Router)
@@ -76,6 +77,11 @@ let router = new Router({
       path:'/register',
       name: 'register',
       component: register
+    },
+    {
+      path:'/changePass',
+      name: 'changePass',
+      component: changePass
     },
     {
       path: '*',

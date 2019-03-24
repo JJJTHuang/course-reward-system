@@ -51,16 +51,6 @@ export default {
     }
   },
   methods: {
-    onInputKeydown(name, event) {
-      console.log(`[Mand Mobile InputItem keydown] ${event.keyCode}`)
-    },
-    onInputChange(name, value) {
-      console.log(`[Mand Mobile InputItem change] ${value}`)
-    },
-    clear(){
-      this.username = ""
-      this.password = ""
-    },
     login(){
       let self = this
       let userData = {
@@ -99,7 +89,7 @@ export default {
 .login_form{
   width: 100%;
   .form{
-    margin-top: 1rem;
+    padding-top: 2rem;
   }
   .btn-group{
     margin-top:0.5rem;

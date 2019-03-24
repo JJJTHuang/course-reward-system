@@ -1,22 +1,11 @@
 <template>
-  <div class="login_form">
-    <v-header title="注册"></v-header>
+  <div class="changePass">
+    <v-header :routerback=true title="修改密码"></v-header>
     <div class="form">
       <md-field>
         <md-input-item
-          title="用户名"
-          name="username"
-          v-model=form.username
-          placeholder="输入用户名"
-          v-validate="'required'"
-          data-vv-validate-on="input"
-          :error="errors.first('username')"
-          clearable
-        ></md-input-item>
-
-        <md-input-item
           type="password"
-          title="密码"
+          title="新密码"
           name="password"
           v-model=form.password
           placeholder="输入密码"
@@ -28,7 +17,7 @@
 
         <md-input-item
           type="password"
-          title="确认密码"
+          title="确认新密码"
           name="confirmpass"
           v-model=form.comfirmpass
           placeholder="再次输入密码"
@@ -42,23 +31,32 @@
           type="phone"
           title="联系电话"
           name="tel"
-          placeholder="Phone Validate On Blur"
+          placeholder="输入联系电话"
           v-validate="'required|tel'"
           data-vv-value-path="innerValue"
           data-vv-validate-on="blur"
           :error="errors.first('tel')"
         ></input-validate>
 
+        <md-input-item
+          title="验证码"
+          name="number"
+          placeholder="输入验证码"
+          v-validate="'required|numeric'"
+          data-vv-validate-on="input"
+          :error="errors.first('number')"
+        >
+        </md-input-item>
+
       </md-field>
     </div>
     <div class="btn-group">
-      <md-button type="primary" @click="login" inline plain>去登录</md-button>
-      <md-button type="primary" @click="reg" inline plain>注册</md-button>
+      <md-button round type="primary" size="small" @click="reg" inline>提交</md-button>
     </div>
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 import { InputItem, Field, Button, Toast } from "mand-mobile"
 import { Validator } from "vee-validate"
 import input_validate from '@/components/input_validate.vue'
@@ -78,7 +76,6 @@ export default {
   data() {
     return {
       form: {
-        username: "",
         password: "",
         confirmpass:'',
         tel: ""
@@ -88,11 +85,6 @@ export default {
   methods: {
     clear() {
       
-    },
-    login() {
-      this.$router.push({
-        name: "login"
-      });
     },
     reg() {
       let self = this
@@ -122,7 +114,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.login_form {
+.changePass {
   width: 100%;
   .form{
     padding-top: 2rem;

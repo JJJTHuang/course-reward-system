@@ -25,7 +25,7 @@ Vue.use(VeeValidate, {
 })
 
 Vue.config.productionTip = false
-window.Bmob.initialize("566cb6b11b85b94302b521780a47e69e", "8e5832c1f9b2efdd9e684290b7fb2470")
+window.Bmob.initialize("566cb6b11b85b94302b521780a47e69e", "8e5832c1f9b2efdd9e684290b7fb2470","adecc8d6068c59049a579ced508b4faf")
 Vue.prototype.Bmob = window.Bmob
 Vue.prototype.api = api
 

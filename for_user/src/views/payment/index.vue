@@ -2,7 +2,7 @@
   <div class="page">
     <drop-down @change="DropdownChange"></drop-down>
     <div class="card-group">
-      <v-card v-for="(item,index) in cardData" :key="index" :card_data=item class="card"></v-card>
+      <v-card v-for="(item,index) in cardData" :key="index" :title=item.title :money=item.money class="card"></v-card>
     </div>
   </div>
 </template>

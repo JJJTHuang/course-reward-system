@@ -350,6 +350,7 @@ export default {
         res_tableData = []
       tableData.forEach((item) => {
         let data = new Array()
+        
         item.process_id = String(item.process_id)
         item.class = item.class.split(',')
         item.class = item.class.map((item, index) => {
@@ -361,6 +362,14 @@ export default {
               num: Number(item[1])
             }
             return data
+          }
+        })
+
+        item.rel_teacher = []
+        let rel_teacher = item.teacher.match(/[0-9]*/g)
+        rel_teacher.forEach(ele=>{
+          if(ele!==''){
+            item.rel_teacher.push(ele)
           }
         })
         item.class = data

@@ -1,7 +1,6 @@
 <template>
   <div class="page">
-    <div class="title">{{card_data.title}}课酬</div>
-      <!-- {{card_data.title}} -->
+    <div class="title">{{title}}课酬</div>
     <div class="md-amount">
       <span v-if=!edit>
         ¥
@@ -11,28 +10,17 @@
           transition
         ></md-amount>
       </span>
-      <md-input-item
-        class="input-item"
-        v-else
-        type="money"
-        title="¥"
-        name="money"
-        v-validate="'required'"
-        v-model=card_data.money
-        @change="changeMoney"
-        :error="errors.first('money')"
-        clearable></md-input-item>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import {Amount,InputItem} from 'mand-mobile'
-
+import {Amount,InputItem,Toast} from 'mand-mobile'
 export default {
   components: {
     [Amount.name]: Amount,
-    [InputItem.name]: InputItem
+    [InputItem.name]: InputItem,
+    [Toast.name]: Toast
   },
   data() {
     return {
@@ -40,18 +28,12 @@ export default {
     }
   },
   props:{
-    card_data:Object,
+    title:String,
+    money:Number,
     edit:Boolean
   },
-  methods:{
-    changeMoney(val){
-      this.$emit('change',this.val)
-    }
-  },
   mounted () {
-    setTimeout(() => {
-      this.val = this.card_data.money
-    }, 1000)
+    this.val = this.money
   }
 }
 </script>

@@ -25,6 +25,14 @@ api.user = {
   },
   getCurrentInfo(self){
     return self.Bmob.User.current()
+  },
+  update(self,objectId,data){
+    let q = self.Bmob.Query(_User)
+    q.set('id', objectId)
+    for (let key in data) {
+      q.set(key, data[key])
+    }
+    return q.save()
   }
 }
 
@@ -46,9 +54,9 @@ api.payment = {
     }
     return q.find()
   },
-  update(self,teacher_id,data){
+  update(self,objectId,data){
     let q = self.Bmob.Query(payment)
-    q.set('id', teacher_id)
+    q.set('id', objectId)
     for (let key in data) {
       q.set(key, data[key])
     }
